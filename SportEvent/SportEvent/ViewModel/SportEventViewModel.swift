@@ -1,10 +1,3 @@
-//
-//  SportEventViewModel.swift
-//  SportEvent
-//
-//  Created by Dominik on 29.11.2023..
-//
-
 import Foundation
 
 class SportEventViewModel {
@@ -15,7 +8,6 @@ class SportEventViewModel {
     var apiService = ApiService()
     var gameList: [Game] = []
     var favorites: [Game] = []
-    
     let defaults = UserDefaults.standard
     
     func fetchEventIds(completion: @escaping ([Int]) -> Void) {
@@ -23,7 +15,6 @@ class SportEventViewModel {
             switch result {
             case .success(let data):
                 self.resultList = data
-                //print("---------- \(self.resultList)")
                 completion(data)
             case .failure(let error):
                 print("Error fetching data: \(error)")
@@ -33,7 +24,6 @@ class SportEventViewModel {
     
     func getAllFavorites() {
         for (key, _) in UserDefaults.standard.dictionaryRepresentation() {
-            print(key)
             if key.contains("GameId:") {
                 guard let data = UserDefaults.standard.data(forKey: key) else {
                     return

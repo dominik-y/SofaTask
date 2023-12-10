@@ -17,14 +17,13 @@
 		B41F35D42B164BF100EFF8CD /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B41F35D32B164BF100EFF8CD /* Alamofire */; };
 		B45502792B20FB0B0050D2FD /* EventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45502782B20FB0B0050D2FD /* EventTableViewCell.swift */; };
 		B46DEC332B1D1724009EF132 /* SportEventTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46DEC322B1D1724009EF132 /* SportEventTableViewCell.swift */; };
-		B4BA4F4B2B2134FE0038B415 /* FavouritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BA4F4A2B2134FE0038B415 /* FavouritesTableViewCell.swift */; };
+		B4BA4F4B2B2134FE0038B415 /* FavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BA4F4A2B2134FE0038B415 /* FavoritesTableViewCell.swift */; };
 		B4F779172B17CE0B009318F5 /* SportEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F779162B17CE0B009318F5 /* SportEventViewModel.swift */; };
 		B4F779192B17CE78009318F5 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F779182B17CE78009318F5 /* ApiService.swift */; };
 		B4F7791B2B17D3FC009318F5 /* SportEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F7791A2B17D3FC009318F5 /* SportEvent.swift */; };
 		B4FEEB232B1A995E00FE6384 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FEEB222B1A995E00FE6384 /* FavoritesViewController.swift */; };
 		B4FEEB252B1A9E6D00FE6384 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FEEB242B1A9E6D00FE6384 /* ViewController.swift */; };
 		B4FEEB282B1B813C00FE6384 /* EventDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FEEB272B1B813C00FE6384 /* EventDetailsViewController.swift */; };
-		B4FEEB2A2B1B863200FE6384 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4FEEB292B1B863200FE6384 /* BackButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,14 +36,13 @@
 		B41F35C12B14FE5600EFF8CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B45502782B20FB0B0050D2FD /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		B46DEC322B1D1724009EF132 /* SportEventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportEventTableViewCell.swift; sourceTree = "<group>"; };
-		B4BA4F4A2B2134FE0038B415 /* FavouritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesTableViewCell.swift; sourceTree = "<group>"; };
+		B4BA4F4A2B2134FE0038B415 /* FavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewCell.swift; sourceTree = "<group>"; };
 		B4F779162B17CE0B009318F5 /* SportEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportEventViewModel.swift; sourceTree = "<group>"; };
 		B4F779182B17CE78009318F5 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		B4F7791A2B17D3FC009318F5 /* SportEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportEvent.swift; sourceTree = "<group>"; };
 		B4FEEB222B1A995E00FE6384 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		B4FEEB242B1A9E6D00FE6384 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B4FEEB272B1B813C00FE6384 /* EventDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewController.swift; sourceTree = "<group>"; };
-		B4FEEB292B1B863200FE6384 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,7 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				B46DEC302B1D16EA009EF132 /* View */,
-				B4FEEB2B2B1B863E00FE6384 /* Extensions */,
 				B41F35CD2B164B7700EFF8CD /* Networking */,
 				B41F35CC2B164B7200EFF8CD /* Model */,
 				B41F35CE2B164B8500EFF8CD /* ViewController */,
@@ -150,18 +147,10 @@
 			isa = PBXGroup;
 			children = (
 				B46DEC322B1D1724009EF132 /* SportEventTableViewCell.swift */,
-				B4BA4F4A2B2134FE0038B415 /* FavouritesTableViewCell.swift */,
+				B4BA4F4A2B2134FE0038B415 /* FavoritesTableViewCell.swift */,
 				B45502782B20FB0B0050D2FD /* EventTableViewCell.swift */,
 			);
 			path = Cells;
-			sourceTree = "<group>";
-		};
-		B4FEEB2B2B1B863E00FE6384 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				B4FEEB292B1B863200FE6384 /* BackButton.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -248,9 +237,8 @@
 				B46DEC332B1D1724009EF132 /* SportEventTableViewCell.swift in Sources */,
 				B4F779172B17CE0B009318F5 /* SportEventViewModel.swift in Sources */,
 				B4FEEB232B1A995E00FE6384 /* FavoritesViewController.swift in Sources */,
-				B4BA4F4B2B2134FE0038B415 /* FavouritesTableViewCell.swift in Sources */,
+				B4BA4F4B2B2134FE0038B415 /* FavoritesTableViewCell.swift in Sources */,
 				B41F35B42B14FE5500EFF8CD /* AppDelegate.swift in Sources */,
-				B4FEEB2A2B1B863200FE6384 /* BackButton.swift in Sources */,
 				B4F779192B17CE78009318F5 /* ApiService.swift in Sources */,
 				B41F35B62B14FE5500EFF8CD /* SceneDelegate.swift in Sources */,
 				B4FEEB282B1B813C00FE6384 /* EventDetailsViewController.swift in Sources */,

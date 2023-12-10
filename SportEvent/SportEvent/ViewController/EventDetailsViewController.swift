@@ -1,10 +1,3 @@
-//
-//  EventDetailsViewController.swift
-//  SportEvent
-//
-//  Created by Dominik on 02.12.2023..
-//
-
 import Foundation
 import UIKit
 
@@ -18,9 +11,9 @@ class EventDetailsViewController: UIViewController {
     let resultLabel = UILabel()
     var dateLabel = UILabel()
     var leaugeLabel = UILabel()
-    // u modelu ?
-    let defaults = UserDefaults.standard
-    private var sportEventsViewModel = SportEventViewModel()
+    
+    private var sportEventViewModel = SportEventViewModel()
+    private var favoritesViewController = FavoritesViewController()
     
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -33,7 +26,6 @@ class EventDetailsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         self.view.addSubview(tableView)
-        getEventsName()
         
         tableViewLayout()
         backButtonDecorate()
@@ -46,19 +38,6 @@ class EventDetailsViewController: UIViewController {
         favouriteIcon.addGestureRecognizer(favoriteGesture)
     }
     
-    func tableViewLayout() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.frame = view.bounds
-    }
-    
-    func setLabelValues(homeTeam: String, awayTeam: String, start: Double) {
-        let dateLongVersion = Date(timeIntervalSince1970: start)
-        let dateShortVersion = dateLongVersion.formatted(date: .abbreviated, time: .shortened)
-        dateLabel.text = "\(dateShortVersion)"
-    }
-    
     init(id: Int) {
         self.id = id
         super.init(nibName: nil, bundle: nil)
@@ -68,7 +47,6 @@ class EventDetailsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // ADD TABLEVIEW
     override func viewWillAppear(_ animated: Bool) {
         if isKeyPresentInUserDefaults(key: "GameId:\(id)") {
             favouriteIcon.image = UIImage(systemName: "star.fill")
@@ -84,18 +62,11 @@ class EventDetailsViewController: UIViewController {
         view.addSubview(leaugeLabel)
     }
     
-    func getEventsName() {
-        ApiService.getEventIds(completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let ids):
-                self.sportEventsViewModel.data = []
-                self.sportEventsViewModel.data.append(contentsOf: ids)
-                tableViewLayout()
-            case .failure(_):
-                break
-            }
-        })
+    func tableViewLayout() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.frame = view.bounds
     }
     
     private func setupLayout() {
@@ -142,13 +113,13 @@ class EventDetailsViewController: UIViewController {
         return true
     }
     
-    
     func addFavorite() {
         UserDefaults.standard.set(try? PropertyListEncoder().encode(game), forKey:"GameId:\(id)")
+        
     }
     
     func removeFavorite() {
-        defaults.removeObject(forKey: "GameId:\(id)")
+        sportEventViewModel.defaults.removeObject(forKey: "GameId:\(id)")
     }
     
     func backButtonDecorate() {
@@ -162,7 +133,7 @@ class EventDetailsViewController: UIViewController {
     }
 }
 
-
+//MARK: Extension
 extension EventDetailsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -170,14 +141,22 @@ extension EventDetailsViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.reuseCellId, for: indexPath) as! EventTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: EventTableViewCell.reuseCellId) as! EventTableViewCell
+        
+        ApiService.getEvent(id: id) { result in
+            switch result {
+            case .success(let success):
+                cell.setLabelValues(league: success.game.tournaments[0].tournament.name, homeTeam: success.game.tournaments[0].events[0].homeTeam.name, awayTeam: success.game.tournaments[0].events[0].awayTeam.name,
+                                    start: Double(success.game.tournaments[0].events[0].startTimestamp))
+                
+            case .failure(_):
+                break
+            }
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 0
     }
 }
-
-
-

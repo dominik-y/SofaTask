@@ -1,20 +1,10 @@
-//
-//  ViewController.swift
-//  SportEvent
-//
-//  Created by Dominik on 27.11.2023..
-//
-
 import UIKit
 import Foundation
 
 class SportEventViewController: UIViewController, UIScrollViewDelegate {
     
-    private var viewController = ViewController()
-    private var favoritesViewConroler = FavoritesViewController()
     private var sportEventsViewModel = SportEventViewModel()
-    let refreshControl = UIRefreshControl()
-    
+    private let refreshControl = UIRefreshControl()
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
         tableView.register(SportEventTableViewCell.self,
@@ -28,13 +18,18 @@ class SportEventViewController: UIViewController, UIScrollViewDelegate {
         getEventsName()
     }
     
-    func tableViewLayout() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.frame = view.bounds
-        refreshControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
-        tableView.addSubview(refreshControl)
+    func getEventsName() {
+        ApiService.getEventIds(completion: { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let ids):
+                self.sportEventsViewModel.data = []
+                self.sportEventsViewModel.data.append(contentsOf: ids)
+                tableViewLayout()
+            case .failure(_):
+                break
+            }
+        })
     }
     
     @objc func pullToRefresh() {
@@ -51,23 +46,19 @@ class SportEventViewController: UIViewController, UIScrollViewDelegate {
             }
         })
     }
-    
-    func getEventsName() {
-        ApiService.getEventIds(completion: { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let ids):
-                self.sportEventsViewModel.data = []
-                self.sportEventsViewModel.data.append(contentsOf: ids)
-                tableViewLayout()
-            case .failure(_):
-                break
-            }
-        })
-    }
 }
 
 extension SportEventViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableViewLayout() {
+        self.view.backgroundColor = .systemBackground
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.frame = view.bounds
+        refreshControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
@@ -83,6 +74,7 @@ extension SportEventViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: SportEventTableViewCell.reuseId, for: indexPath) as! SportEventTableViewCell
             
+            // Svjestan sam poteza, radujem se razgovoru
             ApiService.getEvent(id: sportEventsViewModel.data[indexPath.row]) { result in
                 switch result {
                 case .success(let success):
